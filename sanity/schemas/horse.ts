@@ -1,0 +1,27 @@
+export const horse = {
+  name: "horse",
+  title: "Cheval",
+  type: "document",
+  fields: [
+    { name: "name", title: "Nom", type: "string", validation: (Rule: any) => Rule.required() },
+    { name: "slug", title: "Slug", type: "slug", options: { source: "name", maxLength: 96 } },
+    { name: "breed", title: "Race", type: "string" },
+    { name: "gender", title: "Sexe", type: "string", options: { list: ["male", "female", "gelding"] } },
+    { name: "birthYear", title: "Année de naissance", type: "number" },
+    { name: "heightCm", title: "Taille (cm)", type: "number" },
+    { name: "color", title: "Robe", type: "string" },
+    { name: "disciplines", title: "Disciplines", type: "array", of: [{ type: "string" }] },
+    { name: "description", title: "Description", type: "blockContent" },
+    { name: "mainImage", title: "Image principale", type: "image", options: { hotspot: true } },
+    { name: "gallery", title: "Galerie", type: "array", of: [{ type: "image", options: { hotspot: true } }] },
+    { name: "pedigree", title: "Pedigree", type: "blockContent" },
+    { name: "competitionLevel", title: "Niveau compétition", type: "string" },
+    { name: "isForSale", title: "À vendre", type: "boolean", initialValue: false },
+    { name: "salePrice", title: "Prix de vente (€)", type: "number", hidden: ({ document }: any) => !document?.isForSale },
+    { name: "featured", title: "Mis en avant", type: "boolean", initialValue: false },
+    { name: "seo", title: "SEO", type: "seo" },
+  ],
+  preview: {
+    select: { title: "name", media: "mainImage" },
+  },
+}
