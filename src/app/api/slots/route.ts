@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server"
 import { createClient } from "@/lib/supabase/server"
 
-async function requireAdmin() {
+// Admins ET moniteurs peuvent gérer les créneaux (cours).
+async function requireStaff() {
   const supabase = await createClient()
   const {
     data: { user },
@@ -13,14 +14,14 @@ async function requireAdmin() {
     .select("role")
     .eq("id", user.id)
     .single()
-  if (profile?.role !== "admin")
+  if (profile?.role !== "admin" && profile?.role !== "instructor")
     return { error: "Accès refusé", status: 403 as const, supabase }
 
   return { supabase, user }
 }
 
 export async function POST(request: Request) {
-  const auth = await requireAdmin()
+  const auth = await requireStaff()
   if ("error" in auth) {
     return NextResponse.json({ error: auth.error }, { status: auth.status })
   }
@@ -33,6 +34,7 @@ export async function POST(request: Request) {
       slot_type: body.slot_type,
       title: body.title,
       description: body.description || null,
+      instructor_id: auth.user.id,
       start_time: body.start_time,
       end_time: body.end_time,
       max_participants: body.max_participants || 1,

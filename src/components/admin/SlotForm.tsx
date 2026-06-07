@@ -13,7 +13,13 @@ function isoToLocalInput(iso: string): string {
   return local.toISOString().slice(0, 16)
 }
 
-export function SlotForm({ initialData }: { initialData?: BookingSlot }) {
+export function SlotForm({
+  initialData,
+  basePath = "/admin/creneaux",
+}: {
+  initialData?: BookingSlot
+  basePath?: string
+}) {
   const router = useRouter()
   const isEdit = Boolean(initialData)
 
@@ -72,7 +78,7 @@ export function SlotForm({ initialData }: { initialData?: BookingSlot }) {
       )
       const json = await res.json()
       if (!res.ok) throw new Error(json.error || "Une erreur est survenue")
-      router.push("/admin/creneaux")
+      router.push(basePath)
       router.refresh()
     } catch (err) {
       setError(err instanceof Error ? err.message : "Une erreur est survenue")
@@ -135,7 +141,7 @@ export function SlotForm({ initialData }: { initialData?: BookingSlot }) {
         <Button type="submit" variant="primary" loading={submitting}>
           {isEdit ? "Enregistrer" : "Créer le créneau"}
         </Button>
-        <Button type="button" variant="outline" onClick={() => router.push("/admin/creneaux")}>
+        <Button type="button" variant="outline" onClick={() => router.push(basePath)}>
           Annuler
         </Button>
       </div>

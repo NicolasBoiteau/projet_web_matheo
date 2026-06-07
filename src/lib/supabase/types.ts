@@ -81,6 +81,7 @@ export type Reservation = {
   currency: string
   paid_at: string | null
   cancelled_at: string | null
+  reminder_sent_at: string | null
   created_at: string
   updated_at: string
 }
@@ -183,7 +184,7 @@ export type Profile = {
   last_name: string
   phone: string | null
   avatar_url: string | null
-  role: "admin" | "member"
+  role: "admin" | "member" | "instructor"
   created_at: string
   updated_at: string
 }

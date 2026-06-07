@@ -2,20 +2,17 @@
 
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
-import { LayoutDashboard, Container, CalendarDays, ClipboardList, FileText, Users, LogOut, ExternalLink } from "lucide-react"
+import { LayoutDashboard, CalendarDays, LogOut, ExternalLink } from "lucide-react"
 import { cn } from "@/lib/utils/cn"
+import { avatarUrl } from "@/lib/avatar"
 import { createClient } from "@/lib/supabase/client"
 
 const LINKS = [
-  { href: "/admin", label: "Tableau de bord", icon: LayoutDashboard, exact: true },
-  { href: "/admin/chevaux", label: "Chevaux", icon: Container, exact: false },
-  { href: "/admin/creneaux", label: "Créneaux", icon: CalendarDays, exact: false },
-  { href: "/admin/reservations", label: "Réservations", icon: ClipboardList, exact: false },
-  { href: "/admin/membres", label: "Membres", icon: Users, exact: false },
-  { href: "/admin/contenu", label: "Contenu", icon: FileText, exact: false },
+  { href: "/moniteur", label: "Tableau de bord", icon: LayoutDashboard, exact: true },
+  { href: "/moniteur/cours", label: "Mes cours", icon: CalendarDays, exact: false },
 ]
 
-export function AdminSidebar() {
+export function MoniteurSidebar({ name, email }: { name: string; email: string }) {
   const pathname = usePathname()
   const router = useRouter()
 
@@ -30,8 +27,8 @@ export function AdminSidebar() {
     <aside className="flex w-full shrink-0 flex-col border-b border-fir/10 bg-white lg:w-64 lg:border-b-0 lg:border-r">
       {/* En-tête : logo + raccourcis mobile */}
       <div className="flex items-center justify-between gap-2 border-b border-fir/10 px-4 py-4 lg:px-6 lg:py-5">
-        <Link href="/admin" className="font-display text-lg font-bold text-fir lg:text-xl">
-          O&apos;TAKEY <span className="text-gold">Admin</span>
+        <Link href="/moniteur" className="font-display text-lg font-bold text-fir lg:text-xl">
+          O&apos;TAKEY <span className="text-gold">Moniteur</span>
         </Link>
         <div className="flex items-center gap-1 lg:hidden">
           <Link
@@ -52,7 +49,21 @@ export function AdminSidebar() {
         </div>
       </div>
 
-      {/* Navigation : onglets scrollables en mobile, colonne en desktop */}
+      {/* Profil moniteur */}
+      <div className="flex items-center gap-3 border-b border-fir/10 px-4 py-4 lg:px-6">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={avatarUrl(email || name)}
+          alt=""
+          className="h-10 w-10 shrink-0 rounded-full border border-fir/10 bg-cream"
+        />
+        <div className="min-w-0">
+          <p className="truncate text-sm font-medium text-fir">{name || "Moniteur"}</p>
+          <p className="truncate text-xs text-gray-500">{email}</p>
+        </div>
+      </div>
+
+      {/* Navigation */}
       <nav className="flex gap-1 overflow-x-auto p-2 lg:flex-1 lg:flex-col lg:space-y-1 lg:overflow-visible lg:p-4">
         {LINKS.map((link) => {
           const Icon = link.icon
@@ -77,7 +88,7 @@ export function AdminSidebar() {
         })}
       </nav>
 
-      {/* Pied de page : visible uniquement en desktop (mobile = raccourcis en-tête) */}
+      {/* Pied de page : desktop uniquement */}
       <div className="hidden space-y-1 border-t border-fir/10 p-4 lg:block">
         <Link
           href="/"

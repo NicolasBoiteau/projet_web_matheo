@@ -38,7 +38,8 @@ export default function LoginPage() {
       return
     }
 
-    // Rediriger les admins vers le back-office, les membres vers leur espace
+    // Rediriger selon le rôle : admin → back-office, moniteur → ses cours,
+    // membre → espace membre.
     let destination = "/membre/dashboard"
     if (data.user) {
       const { data: profile } = await supabase
@@ -47,6 +48,7 @@ export default function LoginPage() {
         .eq("id", data.user.id)
         .single()
       if (profile?.role === "admin") destination = "/admin"
+      else if (profile?.role === "instructor") destination = "/moniteur"
     }
 
     router.push(destination)

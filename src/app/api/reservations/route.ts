@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server"
 import { createClient } from "@/lib/supabase/server"
 import { getSlotRemaining } from "@/lib/bookings.server"
+import { sendReservationConfirmation } from "@/lib/email"
 
 export async function POST(request: Request) {
   const supabase = await createClient()
@@ -53,6 +54,22 @@ export async function POST(request: Request) {
 
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 })
+  }
+
+  // Email de confirmation (best-effort : n'empêche jamais la réservation).
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("first_name")
+    .eq("id", user.id)
+    .single()
+
+  if (user.email) {
+    await sendReservationConfirmation({
+      to: user.email,
+      firstName: profile?.first_name ?? null,
+      slot,
+      participants,
+    })
   }
 
   return NextResponse.json({ reservation: data })

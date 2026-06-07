@@ -2,10 +2,31 @@ import { CalendarCheck, Clock, CheckCircle2 } from "lucide-react"
 import { Card, CardContent, CardHeader } from "@/components/ui/Card"
 import { MyReservations } from "@/components/booking/MyReservations"
 import { getUserReservations } from "@/lib/bookings.server"
+import { createClient } from "@/lib/supabase/server"
+import { isSupabaseConfigured } from "@/lib/horses"
+import { avatarUrl } from "@/lib/avatar"
 
 export default async function DashboardPage() {
   const reservations = await getUserReservations()
   const now = new Date()
+
+  let firstName = ""
+  let avatarSeed = ""
+  if (isSupabaseConfigured()) {
+    const supabase = await createClient()
+    const {
+      data: { user },
+    } = await supabase.auth.getUser()
+    if (user) {
+      avatarSeed = user.email ?? user.id
+      const { data: profile } = await supabase
+        .from("profiles")
+        .select("first_name")
+        .eq("id", user.id)
+        .single()
+      firstName = profile?.first_name ?? ""
+    }
+  }
 
   const upcoming = reservations.filter(
     (r) =>
@@ -24,8 +45,20 @@ export default async function DashboardPage() {
 
   return (
     <div>
-      <h1 className="font-display text-2xl font-bold text-fir">Tableau de bord</h1>
-      <p className="mt-1 text-sm text-gray-500">Bienvenue sur votre espace membre.</p>
+      <div className="flex items-center gap-4">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={avatarUrl(avatarSeed)}
+          alt=""
+          className="h-14 w-14 shrink-0 rounded-full border border-fir/10 bg-cream"
+        />
+        <div>
+          <h1 className="font-display text-2xl font-bold text-fir">
+            Bonjour{firstName ? ` ${firstName}` : ""}
+          </h1>
+          <p className="mt-1 text-sm text-gray-500">Bienvenue sur votre espace membre.</p>
+        </div>
+      </div>
 
       <div className="mt-6 grid gap-4 sm:grid-cols-3">
         {stats.map((stat) => {

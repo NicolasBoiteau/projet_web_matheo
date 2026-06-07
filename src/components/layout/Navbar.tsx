@@ -7,6 +7,7 @@ import { Menu, X } from "lucide-react"
 import { cn } from "@/lib/utils/cn"
 import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/Button"
+import { AlertBanner } from "@/components/layout/AlertBanner"
 import { SITE_CONFIG } from "@/lib/utils/constants"
 
 const NAV_LINKS = [
@@ -45,6 +46,9 @@ export function Navbar() {
           : "border-b border-black/5 bg-white/90 shadow-sm backdrop-blur-md"
       )}
     >
+      {/* Bandeau d'alerte empilé au-dessus de la nav (jamais en superposition). */}
+      <AlertBanner />
+
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 lg:px-8">
         {/* Logo */}
         <Link href="/" className="flex items-center">

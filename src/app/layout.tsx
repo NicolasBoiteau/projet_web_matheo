@@ -3,7 +3,6 @@ import { Inter, Playfair_Display } from "next/font/google"
 import "./globals.css"
 import { Navbar } from "@/components/layout/Navbar"
 import { Footer } from "@/components/layout/Footer"
-import { AlertBanner } from "@/components/layout/AlertBanner"
 import { SITE_CONFIG } from "@/lib/utils/constants"
 
 const inter = Inter({
@@ -45,7 +44,6 @@ export default function RootLayout({
       className={`${inter.variable} ${playfair.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col bg-cream font-sans text-foreground">
-        <AlertBanner />
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />

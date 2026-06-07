@@ -115,6 +115,27 @@ export async function getAllSlots(): Promise<BookingSlot[]> {
   }
 }
 
+/** Créneaux créés par le moniteur connecté. */
+export async function getMySlots(): Promise<BookingSlot[]> {
+  if (!isSupabaseConfigured()) return []
+  try {
+    const supabase = await createClient()
+    const {
+      data: { user },
+    } = await supabase.auth.getUser()
+    if (!user) return []
+
+    const { data } = await supabase
+      .from("booking_slots")
+      .select("*")
+      .eq("instructor_id", user.id)
+      .order("start_time", { ascending: false })
+    return (data as BookingSlot[]) ?? []
+  } catch {
+    return []
+  }
+}
+
 /** Toutes les réservations avec créneau + membre (admin). */
 export async function getAllReservations(): Promise<ReservationWithDetails[]> {
   if (!isSupabaseConfigured()) return []

@@ -8,7 +8,13 @@ import { SLOT_TYPE_LABELS } from "@/lib/bookings"
 import { formatDate, formatTime, formatPrice } from "@/lib/utils/formatters"
 import type { BookingSlot } from "@/lib/supabase/types"
 
-export function SlotsTable({ slots }: { slots: BookingSlot[] }) {
+export function SlotsTable({
+  slots,
+  basePath = "/admin/creneaux",
+}: {
+  slots: BookingSlot[]
+  basePath?: string
+}) {
   const router = useRouter()
   const [deletingId, setDeletingId] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
@@ -35,7 +41,7 @@ export function SlotsTable({ slots }: { slots: BookingSlot[] }) {
     return (
       <div className="rounded-2xl border border-dashed border-fir/20 p-12 text-center text-gray-500">
         Aucun créneau.{" "}
-        <Link href="/admin/creneaux/nouveau" className="font-medium text-gold hover:underline">
+        <Link href={`${basePath}/nouveau`} className="font-medium text-gold hover:underline">
           Créer le premier
         </Link>
       </div>
@@ -79,7 +85,7 @@ export function SlotsTable({ slots }: { slots: BookingSlot[] }) {
                 <td className="px-4 py-3">
                   <div className="flex items-center justify-end gap-2">
                     <Link
-                      href={`/admin/creneaux/${slot.id}`}
+                      href={`${basePath}/${slot.id}`}
                       className="rounded-lg p-2 text-gray-400 transition-colors hover:bg-fir/5 hover:text-fir"
                     >
                       <Pencil className="h-4 w-4" />
