@@ -8,8 +8,8 @@ import { SITE_CONFIG } from "@/lib/utils/constants"
 export function Footer() {
   const pathname = usePathname()
 
-  // Le back-office a son propre shell : pas de footer marketing.
-  if (pathname.startsWith("/admin")) return null
+  // Les back-offices (admin + moniteur) ont leur propre shell : pas de footer marketing.
+  if (pathname.startsWith("/admin") || pathname.startsWith("/moniteur")) return null
 
   return (
     <footer className="bg-fir-dark text-white">

@@ -31,8 +31,8 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", onScroll)
   }, [])
 
-  // Le back-office a son propre shell : pas de navbar marketing.
-  if (pathname.startsWith("/admin")) return null
+  // Les back-offices (admin + moniteur) ont leur propre shell : pas de navbar marketing.
+  if (pathname.startsWith("/admin") || pathname.startsWith("/moniteur")) return null
 
   // Transparent uniquement en haut de l'accueil (au-dessus du hero photo).
   const transparent = pathname === "/" && !scrolled && !isOpen

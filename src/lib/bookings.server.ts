@@ -127,6 +127,40 @@ export async function getAllReservations(): Promise<ReservationWithDetails[]> {
 }
 
 /**
+ * Réservations portant sur les cours du moniteur connecté (jointes au créneau
+ * et au profil membre). Client admin car un moniteur n'a pas le droit RLS de
+ * lire les réservations / profils des membres des autres.
+ */
+export async function getInstructorReservations(): Promise<ReservationWithDetails[]> {
+  if (!isSupabaseConfigured()) return []
+  try {
+    const supabase = await createClient()
+    const {
+      data: { user },
+    } = await supabase.auth.getUser()
+    if (!user) return []
+
+    const admin = createAdminClient()
+    const { data: slots } = await admin
+      .from("booking_slots")
+      .select("id")
+      .eq("instructor_id", user.id)
+
+    const ids = (slots ?? []).map((s) => s.id)
+    if (ids.length === 0) return []
+
+    const { data } = await admin
+      .from("reservations")
+      .select("*, booking_slots(*), profiles(first_name, last_name, email)")
+      .in("slot_id", ids)
+      .order("created_at", { ascending: false })
+    return (data as ReservationWithDetails[]) ?? []
+  } catch {
+    return []
+  }
+}
+
+/**
  * Inscrits d'un créneau (réservations actives jointes au profil membre).
  * Client admin (service_role) car un moniteur n'a pas le droit RLS de lire les
  * profils des membres. L'appelant DOIT vérifier au préalable qu'il a le droit

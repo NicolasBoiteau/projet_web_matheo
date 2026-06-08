@@ -32,9 +32,36 @@ export async function PATCH(
     .eq("id", user.id)
     .single()
   const isAdmin = profile?.role === "admin"
+  const isInstructor = profile?.role === "instructor"
 
-  // Un membre ne peut qu'annuler sa propre réservation
-  if (!isAdmin && status !== "cancelled") {
+  // Niveau de droit : l'admin gère tout ; le moniteur gère les réservations de
+  // SES cours ; le membre ne peut qu'annuler sa propre réservation.
+  // « staff » = peut passer n'importe quel statut. On écrit alors via le client
+  // admin (le moniteur n'a pas le droit RLS de modifier la résa d'un autre).
+  let isStaff = isAdmin
+  let useAdminWrite = false
+
+  if (isInstructor && !isAdmin) {
+    const admin = createAdminClient()
+    const { data: resv } = await admin
+      .from("reservations")
+      .select("slot_id")
+      .eq("id", id)
+      .single()
+    if (resv?.slot_id) {
+      const { data: slot } = await admin
+        .from("booking_slots")
+        .select("instructor_id")
+        .eq("id", resv.slot_id)
+        .single()
+      if (slot?.instructor_id === user.id) {
+        isStaff = true
+        useAdminWrite = true
+      }
+    }
+  }
+
+  if (!isStaff && status !== "cancelled") {
     return NextResponse.json({ error: "Action non autorisée" }, { status: 403 })
   }
 
@@ -46,8 +73,10 @@ export async function PATCH(
     update.cancelled_at = new Date().toISOString()
   }
 
-  // RLS : un membre ne peut modifier que ses propres réservations, l'admin toutes.
-  const { data, error } = await supabase
+  // Admin / membre : client utilisateur (RLS applique les droits).
+  // Moniteur propriétaire du cours : client admin (RLS ne le couvre pas).
+  const writer = useAdminWrite ? createAdminClient() : supabase
+  const { data, error } = await writer
     .from("reservations")
     .update(update)
     .eq("id", id)
@@ -61,9 +90,9 @@ export async function PATCH(
     )
   }
 
-  // Notifie le membre quand l'équipe confirme ou annule sa réservation.
+  // Notifie le membre quand l'équipe (admin ou moniteur) confirme ou annule.
   // (Best-effort : un échec d'email n'invalide jamais la mise à jour.)
-  if (isAdmin && (status === "confirmed" || status === "cancelled")) {
+  if (isStaff && (status === "confirmed" || status === "cancelled")) {
     try {
       const admin = createAdminClient()
       const [{ data: slot }, { data: member }] = await Promise.all([
