@@ -2,7 +2,9 @@ import Link from "next/link"
 import { notFound } from "next/navigation"
 import { ArrowLeft } from "lucide-react"
 import { createClient } from "@/lib/supabase/server"
+import { getSlotParticipants } from "@/lib/bookings.server"
 import { SlotForm } from "@/components/admin/SlotForm"
+import { SlotRoster } from "@/components/admin/SlotRoster"
 import type { BookingSlot } from "@/lib/supabase/types"
 
 export default async function EditCoursPage({
@@ -29,6 +31,10 @@ export default async function EditCoursPage({
     notFound()
   }
 
+  const typedSlot = slot as BookingSlot
+  // Sûr : l'accès au créneau vient d'être vérifié (moniteur propriétaire).
+  const participants = await getSlotParticipants(id)
+
   return (
     <div>
       <Link
@@ -38,9 +44,20 @@ export default async function EditCoursPage({
         <ArrowLeft className="h-4 w-4" /> Retour à mes cours
       </Link>
       <h1 className="mb-8 font-display text-3xl font-bold text-fir">
-        Modifier {(slot as BookingSlot).title}
+        Modifier {typedSlot.title}
       </h1>
-      <SlotForm initialData={slot as BookingSlot} basePath="/moniteur/cours" />
+
+      <div className="grid gap-8 lg:grid-cols-5">
+        <div className="lg:col-span-3">
+          <SlotForm initialData={typedSlot} basePath="/moniteur/cours" />
+        </div>
+        <div className="lg:col-span-2">
+          <SlotRoster
+            reservations={participants}
+            maxParticipants={typedSlot.max_participants}
+          />
+        </div>
+      </div>
     </div>
   )
 }

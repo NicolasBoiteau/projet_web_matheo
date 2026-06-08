@@ -6,7 +6,7 @@ export async function POST(req: Request) {
     const body = await req.json()
     const { type, slug } = body
 
-    // Revalidate specific paths based on Sanity webhook payload
+    // Revalide les chemins concernés (appelable après une édition de contenu).
     switch (type) {
       case "horse":
         revalidatePath("/cavalerie")

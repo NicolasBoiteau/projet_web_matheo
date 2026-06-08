@@ -2,6 +2,7 @@ import "server-only"
 import { createClient } from "@/lib/supabase/server"
 import { createAdminClient } from "@/lib/supabase/admin"
 import { isSupabaseConfigured } from "@/lib/horses"
+import { ACTIVE_RESERVATION_STATUSES, computeRemaining } from "@/lib/bookings"
 import type {
   BookingSlot,
   ReservationWithSlot,
@@ -9,7 +10,7 @@ import type {
   SlotWithRemaining,
 } from "@/lib/supabase/types"
 
-const ACTIVE_STATUSES = ["pending", "confirmed"]
+const ACTIVE_STATUSES = ACTIVE_RESERVATION_STATUSES
 
 /**
  * Créneaux à venir et disponibles, avec le nombre de places restantes.
@@ -38,43 +39,17 @@ export async function getAvailableSlots(): Promise<SlotWithRemaining[]> {
       .in("slot_id", ids)
       .in("status", ACTIVE_STATUSES)
 
-    const used: Record<string, number> = {}
+    const bySlot: Record<string, Array<{ participants?: number | null }>> = {}
     for (const r of resv ?? []) {
-      used[r.slot_id] = (used[r.slot_id] ?? 0) + (r.participants ?? 1)
+      ;(bySlot[r.slot_id] ??= []).push(r)
     }
 
     return (slots as BookingSlot[]).map((s) => ({
       ...s,
-      remaining: Math.max(0, s.max_participants - (used[s.id] ?? 0)),
+      remaining: computeRemaining(s.max_participants, bySlot[s.id] ?? []),
     }))
   } catch {
     return []
-  }
-}
-
-/** Places restantes pour un créneau (utilisé à la création d'une réservation). */
-export async function getSlotRemaining(
-  slotId: string
-): Promise<{ slot: BookingSlot; remaining: number } | null> {
-  try {
-    const admin = createAdminClient()
-    const { data: slot } = await admin
-      .from("booking_slots")
-      .select("*")
-      .eq("id", slotId)
-      .single()
-    if (!slot) return null
-
-    const { data: resv } = await admin
-      .from("reservations")
-      .select("participants")
-      .eq("slot_id", slotId)
-      .in("status", ACTIVE_STATUSES)
-
-    const used = (resv ?? []).reduce((sum, r) => sum + (r.participants ?? 1), 0)
-    return { slot: slot as BookingSlot, remaining: Math.max(0, slot.max_participants - used) }
-  } catch {
-    return null
   }
 }
 
@@ -145,6 +120,30 @@ export async function getAllReservations(): Promise<ReservationWithDetails[]> {
       .from("reservations")
       .select("*, booking_slots(*), profiles(first_name, last_name, email)")
       .order("created_at", { ascending: false })
+    return (data as ReservationWithDetails[]) ?? []
+  } catch {
+    return []
+  }
+}
+
+/**
+ * Inscrits d'un créneau (réservations actives jointes au profil membre).
+ * Client admin (service_role) car un moniteur n'a pas le droit RLS de lire les
+ * profils des membres. L'appelant DOIT vérifier au préalable qu'il a le droit
+ * de voir ce créneau (admin, ou moniteur propriétaire du créneau).
+ */
+export async function getSlotParticipants(
+  slotId: string
+): Promise<ReservationWithDetails[]> {
+  if (!isSupabaseConfigured()) return []
+  try {
+    const admin = createAdminClient()
+    const { data } = await admin
+      .from("reservations")
+      .select("*, profiles(first_name, last_name, email)")
+      .eq("slot_id", slotId)
+      .in("status", ACTIVE_RESERVATION_STATUSES)
+      .order("created_at", { ascending: true })
     return (data as ReservationWithDetails[]) ?? []
   } catch {
     return []

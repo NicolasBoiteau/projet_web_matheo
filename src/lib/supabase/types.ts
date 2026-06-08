@@ -79,7 +79,6 @@ export type Reservation = {
   notes: string | null
   amount_cents: number
   currency: string
-  paid_at: string | null
   cancelled_at: string | null
   reminder_sent_at: string | null
   created_at: string

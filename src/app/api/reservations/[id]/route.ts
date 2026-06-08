@@ -1,5 +1,8 @@
 import { NextResponse } from "next/server"
 import { createClient } from "@/lib/supabase/server"
+import { createAdminClient } from "@/lib/supabase/admin"
+import { sendReservationStatusUpdate } from "@/lib/email"
+import type { BookingSlot } from "@/lib/supabase/types"
 
 const VALID_STATUSES = ["pending", "confirmed", "cancelled", "completed", "no_show"]
 
@@ -56,6 +59,28 @@ export async function PATCH(
       { error: error?.message || "Réservation introuvable" },
       { status: 404 }
     )
+  }
+
+  // Notifie le membre quand l'équipe confirme ou annule sa réservation.
+  // (Best-effort : un échec d'email n'invalide jamais la mise à jour.)
+  if (isAdmin && (status === "confirmed" || status === "cancelled")) {
+    try {
+      const admin = createAdminClient()
+      const [{ data: slot }, { data: member }] = await Promise.all([
+        admin.from("booking_slots").select("*").eq("id", data.slot_id).single<BookingSlot>(),
+        admin.from("profiles").select("email, first_name").eq("id", data.user_id).single(),
+      ])
+      if (slot && member?.email) {
+        await sendReservationStatusUpdate({
+          to: member.email,
+          firstName: member.first_name,
+          slot,
+          status,
+        })
+      }
+    } catch (err) {
+      console.error("[reservations] notification de statut échouée:", err)
+    }
   }
 
   return NextResponse.json({ reservation: data })

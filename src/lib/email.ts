@@ -122,6 +122,51 @@ export async function sendReservationConfirmation(
   }
 }
 
+type StatusUpdateParams = {
+  to: string
+  firstName?: string | null
+  slot: BookingSlot
+  status: "confirmed" | "cancelled"
+}
+
+/** Email envoyé quand l'équipe confirme ou annule une réservation. */
+export async function sendReservationStatusUpdate(
+  params: StatusUpdateParams
+): Promise<void> {
+  const resend = getResend()
+  if (!resend) return
+
+  const hello = params.firstName ? `Bonjour ${params.firstName},` : "Bonjour,"
+  const confirmed = params.status === "confirmed"
+
+  const title = confirmed
+    ? "Votre réservation est confirmée"
+    : "Votre réservation a été annulée"
+
+  const intro = confirmed
+    ? `<p>Bonne nouvelle : votre réservation a été <strong>confirmée</strong> par notre équipe. Nous vous attendons !</p>`
+    : `<p>Votre réservation a été <strong>annulée</strong>. Si vous pensez qu'il s'agit d'une erreur ou pour reprogrammer, n'hésitez pas à nous contacter.</p>`
+
+  const outro = confirmed
+    ? `<p>Le règlement s'effectue sur place. À très vite aux écuries !</p>`
+    : `<p>À bientôt aux écuries.</p>`
+
+  const html = layout(title, `<p>${hello}</p>${intro}${slotBlock(params.slot)}${outro}`)
+
+  try {
+    await resend.emails.send({
+      from: FROM,
+      to: params.to,
+      subject: confirmed
+        ? `Réservation confirmée — ${params.slot.title}`
+        : `Réservation annulée — ${params.slot.title}`,
+      html,
+    })
+  } catch (err) {
+    console.error("[email] mise à jour de statut échouée:", err)
+  }
+}
+
 type ReminderParams = {
   to: string
   firstName?: string | null

@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server"
 
 export async function GET() {
-  // In production, fetch from Sanity
+  // Bannière statique (le contenu marketing dynamique passe par le CMS Supabase).
   return NextResponse.json({
     message: "Bienvenue aux Écuries du O'TAKEY — Prochains stages disponibles !",
     isActive: true,
