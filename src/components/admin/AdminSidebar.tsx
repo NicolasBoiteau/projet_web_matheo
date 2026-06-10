@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
-import { LayoutDashboard, Container, CalendarDays, ClipboardList, FileText, Users, LogOut, ExternalLink } from "lucide-react"
+import { LayoutDashboard, Container, CalendarDays, ClipboardList, Trophy, FileText, Users, LogOut, ExternalLink } from "lucide-react"
 import { cn } from "@/lib/utils/cn"
 import { createClient } from "@/lib/supabase/client"
 
@@ -11,6 +11,7 @@ const LINKS = [
   { href: "/admin/chevaux", label: "Chevaux", icon: Container, exact: false },
   { href: "/admin/creneaux", label: "Créneaux", icon: CalendarDays, exact: false },
   { href: "/admin/reservations", label: "Réservations", icon: ClipboardList, exact: false },
+  { href: "/admin/concours", label: "Concours", icon: Trophy, exact: false },
   { href: "/admin/membres", label: "Membres", icon: Users, exact: false },
   { href: "/admin/contenu", label: "Contenu", icon: FileText, exact: false },
 ]

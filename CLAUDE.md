@@ -85,6 +85,7 @@ Protège `/membre/*` et `/admin/*` (ce dernier exige le rôle `admin`). **Passe-
 | 011 | rôle `instructor` (moniteur) | étend le CHECK de `profiles.role` + RLS slots pour les moniteurs |
 | 012 | **fonction `create_reservation()` atomique** | verrou de ligne + contrôle de capacité dans une transaction (anti-surbooking) |
 | 013 | cleanup Stripe/facturation | drop colonnes `stripe_*`/`paid_at` + tables `invoices`/`payments` |
+| 014 | **`concours`** (compétitions + palmarès) | podium structuré `jsonb` ; RLS lecture publique (publié) + écriture équipe via `is_staff()` — gérable par admins **et** moniteurs |
 
 RLS partout via `is_admin()` (admins gèrent tout, membres leurs propres données, lecture publique des chevaux publiés et des créneaux).
 `seed.sql` — créneaux de réservation de démo.
@@ -92,7 +93,7 @@ RLS partout via `is_admin()` (admins gèrent tout, membres leurs propres donnée
 ## Mise en route (prérequis pour que tout fonctionne)
 
 1. Créer un projet Supabase, mettre les vraies clés dans `.env.local` (`NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`).
-2. Exécuter les migrations **`001` → `013`** dans l'ordre (la fonction `is_admin()` de `001` est utilisée par `006`/`007` ; `012` ajoute la réservation atomique, `013` nettoie Stripe/facturation).
+2. Exécuter les migrations **`001` → `014`** dans l'ordre (la fonction `is_admin()` de `001` est utilisée par `006`/`007` ; `011` ajoute `is_staff()` utilisée par `014` ; `012` ajoute la réservation atomique, `013` nettoie Stripe/facturation, `014` ajoute les concours).
 3. (Optionnel) `seed.sql` pour des créneaux de démo.
 4. Définir `ADMIN_EMAIL` / `ADMIN_PASSWORD` / `ADMIN_SETUP_SECRET`, puis appeler une fois `/api/admin/setup?secret=...` pour créer le compte admin.
 5. Se connecter sur `/login` → accès à `/admin`.

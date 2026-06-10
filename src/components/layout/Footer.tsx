@@ -57,6 +57,7 @@ export function Footer() {
                 { href: "/chevaux-a-vendre", label: "Chevaux à vendre" },
                 { href: "/equipe", label: "L'équipe" },
                 { href: "/stages", label: "Stages & événements" },
+                { href: "/concours", label: "Concours & palmarès" },
               ].map((link) => (
                 <li key={link.href}>
                   <Link

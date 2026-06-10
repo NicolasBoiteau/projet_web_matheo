@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Les Écuries du O'TAKEY — Présentation du site web</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --black: #0d0d0d;
+    --gold: #C5A55A;
+    --gold-soft: #d9c089;
+    --copper: #B87333;
+    --fir: #1B3A2D;
+    --fir-light: #2D5A47;
+    --cream: #f7f3ea;
+    --cream-dim: #e8e0cf;
+    --ink: #1a1a1a;
+    --blue: #4a7fb5;
+    --member: #4a7fb5;
+    --mono: #7b5ea7;
+    --admin: #c2772f;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: var(--black);
+    color: var(--cream);
+    overflow-x: hidden;
+  }
+
+  .deck { scroll-snap-type: y mandatory; overflow-y: scroll; height: 100vh; }
+  .slide {
+    scroll-snap-align: start;
+    min-height: 100vh; width: 100%;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 6vh 8vw; position: relative;
+    border-bottom: 1px solid rgba(197,165,90,0.12);
+  }
+
+  h1, h2, h3, .serif { font-family: 'Playfair Display', Georgia, serif; }
+
+  .kicker { text-transform: uppercase; letter-spacing: 0.35em; font-size: 0.72rem; font-weight: 600; color: var(--gold); margin-bottom: 1.4rem; }
+  .rule { width: 64px; height: 3px; background: var(--gold); margin: 1.2rem 0 1.8rem; border-radius: 2px; }
+  .slide-num { position: absolute; bottom: 3vh; right: 8vw; font-size: 0.75rem; letter-spacing: 0.2em; color: rgba(247,243,234,0.35); }
+  .tag { position: absolute; top: 4vh; left: 8vw; font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(247,243,234,0.4); }
+
+  /* ---------- Cover ---------- */
+  .cover { background: radial-gradient(1200px 600px at 75% 20%, rgba(197,165,90,0.18), transparent 60%), linear-gradient(160deg, #000 0%, #11211a 55%, #1B3A2D 100%); text-align: left; }
+  .cover .crest { font-family: 'Playfair Display', serif; font-weight: 800; font-size: clamp(2.6rem, 7vw, 5.6rem); line-height: 1.02; color: var(--cream); }
+  .cover .crest .gold { color: var(--gold); }
+  .cover .sub { margin-top: 1.6rem; font-size: clamp(1rem, 2vw, 1.4rem); color: var(--cream-dim); max-width: 44ch; font-weight: 300; }
+  .cover .meta { margin-top: 3.5rem; display: flex; gap: 2.5rem; flex-wrap: wrap; font-size: 0.85rem; letter-spacing: 0.05em; color: rgba(247,243,234,0.6); }
+  .cover .meta strong { color: var(--gold); display: block; font-weight: 600; letter-spacing: 0.1em; margin-bottom: 0.2rem; text-transform: uppercase; font-size: 0.7rem; }
+
+  h2.title { font-size: clamp(1.9rem, 4vw, 3.2rem); font-weight: 700; line-height: 1.1; }
+  .lead { font-size: clamp(1.05rem, 1.8vw, 1.35rem); font-weight: 300; color: var(--cream-dim); max-width: 62ch; line-height: 1.6; }
+
+  .grid { display: grid; gap: 1.4rem; margin-top: 2.6rem; }
+  .grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+  .grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
+
+  .card { background: rgba(255,255,255,0.04); border: 1px solid rgba(197,165,90,0.18); border-radius: 14px; padding: 1.5rem 1.6rem; transition: transform .2s, border-color .2s; }
+  .card:hover { transform: translateY(-3px); border-color: var(--gold); }
+  .card .ico { font-size: 1.7rem; margin-bottom: 0.7rem; display: block; }
+  .card h3 { font-size: 1.15rem; font-weight: 700; color: var(--cream); margin-bottom: 0.5rem; }
+  .card p { font-size: 0.92rem; color: rgba(247,243,234,0.72); line-height: 1.5; font-weight: 300; }
+
+  ul.feat { list-style: none; margin-top: 2rem; max-width: 70ch; }
+  ul.feat li { padding: 0.85rem 0 0.85rem 2.2rem; position: relative; border-bottom: 1px solid rgba(197,165,90,0.12); font-size: 1.02rem; font-weight: 300; color: var(--cream-dim); }
+  ul.feat li::before { content: "✦"; position: absolute; left: 0; top: 0.85rem; color: var(--gold); font-size: 0.9rem; }
+  ul.feat li b { color: var(--cream); font-weight: 600; }
+
+  .two-col { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 4vw; align-items: center; }
+  .stat-row { display: flex; gap: 3rem; margin-top: 2.6rem; flex-wrap: wrap; }
+  .stat .n { font-family: 'Playfair Display', serif; font-size: clamp(2.2rem,4vw,3.4rem); font-weight: 800; color: var(--gold); line-height: 1; }
+  .stat .l { font-size: 0.82rem; letter-spacing: 0.08em; color: rgba(247,243,234,0.6); margin-top: 0.5rem; text-transform: uppercase; }
+
+  .pill { display: inline-block; background: rgba(197,165,90,0.14); border: 1px solid rgba(197,165,90,0.4); color: var(--gold-soft); border-radius: 999px; padding: 0.3rem 0.9rem; font-size: 0.78rem; letter-spacing: 0.04em; margin: 0.25rem 0.3rem 0.25rem 0; }
+
+  .green-slide { background: linear-gradient(160deg, #11211a, #1B3A2D); }
+  .cream-slide { background: var(--cream); color: var(--ink); }
+  .cream-slide .kicker { color: var(--copper); }
+  .cream-slide .rule { background: var(--copper); }
+  .cream-slide .lead { color: #44443e; }
+  .cream-slide h2.title { color: var(--fir); }
+  .cream-slide .card { background: #fff; border-color: rgba(184,115,51,0.25); box-shadow: 0 8px 30px rgba(0,0,0,0.06); }
+  .cream-slide .card h3 { color: var(--fir); }
+  .cream-slide .card p { color: #55554d; }
+  .cream-slide .slide-num, .cream-slide .tag { color: rgba(0,0,0,0.35); }
+
+  /* ---------- Workflow diagram ---------- */
+  .actorbar { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-top: 0.4rem; }
+  .actor { display: inline-flex; align-items: center; gap: 0.45rem; font-size: 0.8rem; font-weight: 600; padding: 0.3rem 0.85rem; border-radius: 999px; }
+  .actor .dot { width: 9px; height: 9px; border-radius: 50%; }
+  .a-member { background: rgba(74,127,181,0.16); color: #9cc3ec; }
+  .a-member .dot { background: var(--member); }
+  .a-mono { background: rgba(123,94,167,0.16); color: #c3aee6; }
+  .a-mono .dot { background: var(--mono); }
+  .a-admin { background: rgba(194,119,47,0.16); color: #e7b27e; }
+  .a-admin .dot { background: var(--admin); }
+  .a-auto { background: rgba(197,165,90,0.16); color: var(--gold-soft); }
+  .a-auto .dot { background: var(--gold); }
+
+  .flow { display: flex; align-items: stretch; gap: 0; margin-top: 2.4rem; flex-wrap: wrap; }
+  .flow .step {
+    flex: 1; min-width: 160px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(197,165,90,0.2);
+    border-top: 3px solid var(--gold);
+    padding: 1.2rem 1.1rem; border-radius: 12px; position: relative;
+  }
+  .flow .step.member { border-top-color: var(--member); }
+  .flow .step.mono { border-top-color: var(--mono); }
+  .flow .step.admin { border-top-color: var(--admin); }
+  .flow .step.auto { border-top-color: var(--gold); }
+  .flow .step .emoji { font-size: 1.5rem; display: block; margin-bottom: 0.5rem; }
+  .flow .step .s { font-size: 0.68rem; color: var(--gold); letter-spacing: 0.2em; text-transform: uppercase; }
+  .flow .step h4 { font-family: 'Playfair Display', serif; font-size: 1.02rem; margin: 0.25rem 0 0.4rem; color: var(--cream); }
+  .flow .step p { font-size: 0.82rem; color: rgba(247,243,234,0.65); font-weight: 300; line-height: 1.45; }
+  .flow .arrow { display: flex; align-items: center; justify-content: center; color: var(--gold); font-size: 1.4rem; padding: 0 0.5rem; }
+
+  .result { margin-top: 1.8rem; display: inline-flex; align-items: center; gap: 0.7rem; background: rgba(197,165,90,0.12); border: 1px solid rgba(197,165,90,0.35); border-radius: 12px; padding: 0.9rem 1.3rem; font-size: 1rem; color: var(--cream); }
+  .result .check { color: var(--gold); font-size: 1.3rem; }
+
+  .cream-slide .flow .step { background: #fff; border-color: rgba(0,0,0,0.06); box-shadow: 0 6px 20px rgba(0,0,0,0.05); }
+  .cream-slide .flow .step h4 { color: var(--fir); }
+  .cream-slide .flow .step p { color: #55554d; }
+  .cream-slide .result { color: var(--fir); }
+
+  #progress { position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(90deg, var(--gold), var(--copper)); width: 0%; z-index: 100; transition: width .25s; }
+  .hint { position: fixed; bottom: 1.4rem; left: 50%; transform: translateX(-50%); font-size: 0.72rem; letter-spacing: 0.15em; color: rgba(247,243,234,0.4); z-index: 90; text-transform: uppercase; background: rgba(0,0,0,0.4); padding: 0.4rem 1rem; border-radius: 999px; transition: opacity .4s; }
+
+  @media (max-width: 820px) {
+    .grid.cols-2, .grid.cols-3, .grid.cols-4 { grid-template-columns: 1fr; }
+    .two-col { grid-template-columns: 1fr; }
+    .slide { padding: 9vh 7vw; }
+    .flow { flex-direction: column; }
+    .flow .arrow { transform: rotate(90deg); padding: 0.3rem 0; }
+  }
+
+  @media print {
+    @page { size: A4 landscape; margin: 0; }
+    body, .deck { height: auto; overflow: visible; background: #fff; }
+    .deck { display: block; }
+    .slide { page-break-after: always; min-height: 100vh; break-inside: avoid; }
+    #progress, .hint { display: none; }
+    .card:hover { transform: none; }
+  }
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+<div class="hint" id="hint">← → pour naviguer · Ctrl/Cmd + P pour exporter en PDF</div>
+
+<div class="deck" id="deck">
+
+  <!-- 1. COVER -->
+  <section class="slide cover">
+    <div class="kicker">Centre équestre · Avrainville (91)</div>
+    <div class="crest">Les Écuries<br/>du <span class="gold">O'TAKEY</span></div>
+    <p class="sub">Le nouveau site internet du club, expliqué simplement : à quoi il sert, et comment il facilite le quotidien.</p>
+    <div class="meta">
+      <div><strong>Pour</strong>Le gérant du club</div>
+      <div><strong>Le site fait</strong>Vitrine · Réservations · Gestion</div>
+      <div><strong>Devise</strong>Dynamisme · Excellence · Passion</div>
+    </div>
+    <div class="slide-num">01</div>
+  </section>
+
+  <!-- 2. EN BREF -->
+  <section class="slide">
+    <span class="tag">L'essentiel</span>
+    <div class="kicker">En une phrase</div>
+    <h2 class="title">Une belle vitrine en ligne,<br/>qui fait aussi <span style="color:var(--gold)">tourner le club</span>.</h2>
+    <div class="rule"></div>
+    <p class="lead">Vos clients découvrent le centre et réservent leurs cours depuis leur téléphone. Vos moniteurs gèrent leurs cours. Et vous tenez le site à jour vous-même, sans informaticien. Le tout sans aucun frais mensuel.</p>
+    <div class="stat-row">
+      <div class="stat"><div class="n">24h/24</div><div class="l">accessible</div></div>
+      <div class="stat"><div class="n">0 €</div><div class="l">par mois</div></div>
+      <div class="stat"><div class="n">100%</div><div class="l">modifiable par vous</div></div>
+      <div class="stat"><div class="n">0</div><div class="l">logiciel à installer</div></div>
+    </div>
+    <div class="slide-num">02</div>
+  </section>
+
+  <!-- 3. QUI FAIT QUOI -->
+  <section class="slide green-slide">
+    <span class="tag">Les rôles</span>
+    <div class="kicker">Qui fait quoi sur le site</div>
+    <h2 class="title">Chacun son espace</h2>
+    <div class="rule"></div>
+    <div class="grid cols-4">
+      <div class="card"><span class="ico">🌐</span><h3>Les visiteurs</h3><p>Tout le monde : découvrent le club, les chevaux, les pensions, l'équipe, les stages et les concours.</p></div>
+      <div class="card" style="border-color:rgba(74,127,181,0.5)"><span class="ico">🏇</span><h3>Les cavaliers</h3><p>Les membres inscrits : réservent leurs cours et suivent leur planning.</p></div>
+      <div class="card" style="border-color:rgba(123,94,167,0.5)"><span class="ico">🎓</span><h3>Les moniteurs</h3><p>Créent leurs cours, valident les inscriptions, publient les résultats de concours.</p></div>
+      <div class="card" style="border-color:rgba(194,119,47,0.5)"><span class="ico">⚙️</span><h3>Vous (gérant)</h3><p>Contrôle de tout : contenu, chevaux, planning, et qui a le droit de faire quoi.</p></div>
+    </div>
+    <div class="actorbar" style="margin-top:2rem;">
+      <span class="actor a-member"><span class="dot"></span>Cavalier</span>
+      <span class="actor a-mono"><span class="dot"></span>Moniteur</span>
+      <span class="actor a-admin"><span class="dot"></span>Gérant</span>
+      <span class="actor a-auto"><span class="dot"></span>Automatique</span>
+    </div>
+    <div class="slide-num">03</div>
+  </section>
+
+  <!-- 4. CAS D'USAGE 1 -->
+  <section class="slide cream-slide">
+    <span class="tag">Cas d'usage</span>
+    <div class="kicker">① Un cavalier réserve son cours</div>
+    <h2 class="title">Réserver, sans appeler le club</h2>
+    <div class="rule"></div>
+    <div class="actorbar"><span class="actor a-member"><span class="dot"></span>Cavalier</span><span class="actor a-mono"><span class="dot"></span>Moniteur</span><span class="actor a-auto"><span class="dot"></span>Automatique</span></div>
+    <div class="flow">
+      <div class="step member"><span class="emoji">📱</span><div class="s">Étape 1</div><h4>Il choisit</h4><p>Le cavalier ouvre le site, voit les créneaux libres et clique sur celui qui lui convient.</p></div>
+      <div class="arrow">→</div>
+      <div class="step member"><span class="emoji">✉️</span><div class="s">Étape 2</div><h4>Il s'inscrit</h4><p>Sa demande part en un clic. Aucun paiement : le règlement se fait sur place.</p></div>
+      <div class="arrow">→</div>
+      <div class="step mono"><span class="emoji">✅</span><div class="s">Étape 3</div><h4>On valide</h4><p>Le moniteur (ou vous) accepte la demande depuis son espace.</p></div>
+      <div class="arrow">→</div>
+      <div class="step auto"><span class="emoji">🔔</span><div class="s">Étape 4</div><h4>Rappel auto</h4><p>Le cavalier reçoit une confirmation, puis un rappel la veille du cours.</p></div>
+    </div>
+    <div class="result"><span class="check">✓</span> Résultat : moins d'appels, moins d'oublis, un planning toujours à jour.</div>
+    <div class="slide-num">04</div>
+  </section>
+
+  <!-- 5. CAS D'USAGE 2 -->
+  <section class="slide">
+    <span class="tag">Cas d'usage</span>
+    <div class="kicker">② Un moniteur ajoute un cours</div>
+    <h2 class="title">Les moniteurs autonomes</h2>
+    <div class="rule"></div>
+    <div class="actorbar"><span class="actor a-mono"><span class="dot"></span>Moniteur</span><span class="actor a-member"><span class="dot"></span>Cavalier</span></div>
+    <div class="flow">
+      <div class="step mono"><span class="emoji">🔑</span><div class="s">Étape 1</div><h4>Il se connecte</h4><p>Le moniteur ouvre son espace personnel, séparé du reste.</p></div>
+      <div class="arrow">→</div>
+      <div class="step mono"><span class="emoji">➕</span><div class="s">Étape 2</div><h4>Il crée un cours</h4><p>Date, horaire, nombre de places… en quelques secondes.</p></div>
+      <div class="arrow">→</div>
+      <div class="step auto"><span class="emoji">🌐</span><div class="s">Étape 3</div><h4>C'est en ligne</h4><p>Le cours apparaît aussitôt sur la page de réservation.</p></div>
+      <div class="arrow">→</div>
+      <div class="step member"><span class="emoji">🏇</span><div class="s">Étape 4</div><h4>Ça se remplit</h4><p>Les cavaliers réservent ; le moniteur voit sa liste d'inscrits.</p></div>
+    </div>
+    <div class="result"><span class="check">✓</span> Résultat : vous n'avez plus à saisir les cours de chacun — ils s'en chargent.</div>
+    <div class="slide-num">05</div>
+  </section>
+
+  <!-- 6. CAS D'USAGE 3 -->
+  <section class="slide cream-slide">
+    <span class="tag">Cas d'usage</span>
+    <div class="kicker">③ Vous mettez le site à jour</div>
+    <h2 class="title">Modifier le site, sans informaticien</h2>
+    <div class="rule"></div>
+    <div class="actorbar"><span class="actor a-admin"><span class="dot"></span>Gérant</span><span class="actor a-auto"><span class="dot"></span>Automatique</span></div>
+    <div class="flow">
+      <div class="step admin"><span class="emoji">🔑</span><div class="s">Étape 1</div><h4>Vous vous connectez</h4><p>À votre tableau de bord privé, depuis n'importe quel ordinateur.</p></div>
+      <div class="arrow">→</div>
+      <div class="step admin"><span class="emoji">✏️</span><div class="s">Étape 2</div><h4>Vous modifiez</h4><p>Un tarif de pension, une photo de cheval, un nouveau membre de l'équipe…</p></div>
+      <div class="arrow">→</div>
+      <div class="step admin"><span class="emoji">💾</span><div class="s">Étape 3</div><h4>Vous enregistrez</h4><p>Un seul bouton. Pas de code, pas de manipulation compliquée.</p></div>
+      <div class="arrow">→</div>
+      <div class="step auto"><span class="emoji">⚡</span><div class="s">Étape 4</div><h4>En ligne aussitôt</h4><p>Le changement est visible immédiatement par tous les visiteurs.</p></div>
+    </div>
+    <div class="result"><span class="check">✓</span> Résultat : le site reste vivant et à jour, à votre rythme.</div>
+    <div class="slide-num">06</div>
+  </section>
+
+  <!-- 7. CAS D'USAGE 4 -->
+  <section class="slide green-slide">
+    <span class="tag">Cas d'usage</span>
+    <div class="kicker">④ Un concours et son palmarès</div>
+    <h2 class="title">Mettre les cavaliers à l'honneur</h2>
+    <div class="rule"></div>
+    <div class="actorbar"><span class="actor a-mono"><span class="dot"></span>Moniteur</span><span class="actor a-admin"><span class="dot"></span>Gérant</span><span class="actor a-auto"><span class="dot"></span>Automatique</span></div>
+    <div class="flow">
+      <div class="step admin"><span class="emoji">📅</span><div class="s">Étape 1</div><h4>Avant</h4><p>Vous annoncez les concours à venir (date, lieu, discipline).</p></div>
+      <div class="arrow">→</div>
+      <div class="step mono"><span class="emoji">🏆</span><div class="s">Étape 2</div><h4>Après</h4><p>Vous saisissez le podium : 1er, 2e, 3e — cavalier et cheval.</p></div>
+      <div class="arrow">→</div>
+      <div class="step auto"><span class="emoji">🥇</span><div class="s">Étape 3</div><h4>Palmarès public</h4><p>Les résultats s'affichent joliment sur la page « Concours ».</p></div>
+      <div class="arrow">→</div>
+      <div class="step member"><span class="emoji">💬</span><div class="s">Étape 4</div><h4>Fierté &amp; image</h4><p>Cavaliers et parents partagent — belle vitrine pour le club.</p></div>
+    </div>
+    <div class="result"><span class="check">✓</span> Résultat : un vrai tableau d'honneur, valorisant et fédérateur.</div>
+    <div class="slide-num">07</div>
+  </section>
+
+  <!-- 8. SITE VITRINE -->
+  <section class="slide cream-slide">
+    <span class="tag">La vitrine</span>
+    <div class="kicker">Les pages du site</div>
+    <h2 class="title">Un site élégant qui donne envie de venir</h2>
+    <div class="rule"></div>
+    <p class="lead">Au design soigné aux couleurs du club, lisible sur téléphone comme sur ordinateur.</p>
+    <div class="grid cols-3">
+      <div class="card"><span class="ico">🏠</span><h3>Accueil</h3><p>Présentation, chiffres clés, avis clients et bouton de réservation.</p></div>
+      <div class="card"><span class="ico">🐴</span><h3>Cavalerie</h3><p>Galerie des chevaux, fiches détaillées et chevaux à vendre.</p></div>
+      <div class="card"><span class="ico">🏡</span><h3>Pensions</h3><p>Vos formules (Box, Paddock, Compétition) clairement comparées.</p></div>
+      <div class="card"><span class="ico">👥</span><h3>Équipe &amp; Stages</h3><p>Vos moniteurs et les stages à venir.</p></div>
+      <div class="card"><span class="ico">🏆</span><h3>Concours</h3><p>Les prochains concours et le palmarès des cavaliers.</p></div>
+      <div class="card"><span class="ico">✉️</span><h3>Contact</h3><p>Formulaire, coordonnées, horaires et accès à Avrainville.</p></div>
+    </div>
+    <div class="slide-num">08</div>
+  </section>
+
+  <!-- 9. ESPACES PRIVÉS -->
+  <section class="slide">
+    <span class="tag">Les espaces privés</span>
+    <div class="kicker">Membre · Moniteur · Gérant</div>
+    <h2 class="title">Trois back-offices, selon le rôle</h2>
+    <div class="rule"></div>
+    <div class="grid cols-3">
+      <div class="card" style="border-color:rgba(74,127,181,0.5)">
+        <span class="ico">🏇</span><h3>Espace cavalier</h3>
+        <p>Planning personnel (calendrier), suivi de ses réservations, modification de son profil et de son mot de passe.</p>
+      </div>
+      <div class="card" style="border-color:rgba(123,94,167,0.5)">
+        <span class="ico">🎓</span><h3>Espace moniteur</h3>
+        <p>Créer ses cours, valider les demandes des cavaliers, voir ses inscrits, publier les résultats de concours.</p>
+      </div>
+      <div class="card" style="border-color:rgba(194,119,47,0.5)">
+        <span class="ico">⚙️</span><h3>Tableau de bord gérant</h3>
+        <p>Chevaux, créneaux, réservations, contenu du site, concours, et gestion des rôles de chacun.</p>
+      </div>
+    </div>
+    <p class="lead" style="margin-top:2rem; font-size:0.98rem;">🔒 Chacun ne voit que ce qui le concerne — et l'accès gérant est strictement protégé.</p>
+    <div class="slide-num">09</div>
+  </section>
+
+  <!-- 10. EMAILS -->
+  <section class="slide green-slide">
+    <span class="tag">Automatisation</span>
+    <div class="kicker">Le site communique tout seul</div>
+    <h2 class="title">Des emails envoyés automatiquement</h2>
+    <div class="rule"></div>
+    <div class="grid cols-2">
+      <div class="card"><span class="ico">📨</span><h3>Confirmation</h3><p>Le cavalier reçoit un récapitulatif dès qu'il réserve un cours.</p></div>
+      <div class="card"><span class="ico">⏰</span><h3>Rappel la veille</h3><p>Un rappel automatique la veille du cours — moins d'absences.</p></div>
+      <div class="card"><span class="ico">✔️</span><h3>Validation / annulation</h3><p>Le cavalier est prévenu quand sa demande est acceptée ou annulée.</p></div>
+      <div class="card"><span class="ico">📬</span><h3>Messages de contact</h3><p>Les demandes envoyées depuis le site vous arrivent directement.</p></div>
+    </div>
+    <div class="slide-num">10</div>
+  </section>
+
+  <!-- 11. FIABLE & GRATUIT -->
+  <section class="slide cream-slide">
+    <span class="tag">Rassurant</span>
+    <div class="kicker">Fiable, sécurisé, gratuit</div>
+    <h2 class="title">Et combien ça coûte ? Rien.</h2>
+    <div class="rule"></div>
+    <div class="two-col">
+      <ul class="feat">
+        <li><b>Aucun abonnement mensuel</b> — le site et ses données sont hébergés gratuitement en ligne.</li>
+        <li><b>Rien à entretenir</b> — sauvegardes et maintenance assurées automatiquement.</li>
+        <li><b>Sécurisé</b> — données protégées, accès gérant réservé à vous.</li>
+        <li><b>Accessible partout</b> — ordinateur, tablette, téléphone, 24h/24.</li>
+        <li><b>Évolutif</b> — on peut ajouter de nouvelles fonctions quand vous voulez.</li>
+      </ul>
+      <div class="card" style="align-self:start;">
+        <span class="ico">💸</span>
+        <h3>Le seul coût possible</h3>
+        <p><b style="color:var(--fir)">0 € / mois</b> pour fonctionner. En option : une adresse personnalisée type <i>ecuries-otakey.fr</i>, environ 10–15 € par an, si vous le souhaitez.</p>
+      </div>
+    </div>
+    <div class="slide-num">11</div>
+  </section>
+
+  <!-- 12. CLOSING -->
+  <section class="slide cover" style="background: radial-gradient(1000px 500px at 30% 80%, rgba(197,165,90,0.16), transparent 60%), linear-gradient(160deg, #1B3A2D 0%, #11211a 50%, #000 100%);">
+    <div class="kicker">En résumé</div>
+    <div class="crest" style="font-size:clamp(2rem,5.5vw,4.2rem);">Un site qui <span class="gold">travaille</span><br/>pour le club.</div>
+    <p class="sub" style="margin-top:2rem;">Une vitrine élégante, la réservation en ligne, des espaces pour les cavaliers et les moniteurs, un palmarès de concours, et tout pilotable par vous — sans frais mensuel.</p>
+    <div class="meta" style="margin-top:3rem;">
+      <div><strong>Et ensuite ?</strong>Mise en ligne définitive + petite prise en main ensemble</div>
+      <div><strong>Disponible</strong>Pour une démonstration en direct</div>
+    </div>
+    <p style="margin-top:3rem; font-family:'Playfair Display',serif; font-size:1.3rem; color:var(--gold);">Merci.</p>
+    <div class="slide-num">12</div>
+  </section>
+
+</div>
+
+<script>
+  const deck = document.getElementById('deck');
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const progress = document.getElementById('progress');
+  const hint = document.getElementById('hint');
+
+  function current() { return Math.round(deck.scrollTop / window.innerHeight); }
+  function go(i) { i = Math.max(0, Math.min(slides.length - 1, i)); slides[i].scrollIntoView({ behavior: 'smooth' }); }
+  document.addEventListener('keydown', (e) => {
+    if (['ArrowRight','ArrowDown','PageDown',' '].includes(e.key)) { e.preventDefault(); go(current()+1); }
+    if (['ArrowLeft','ArrowUp','PageUp'].includes(e.key)) { e.preventDefault(); go(current()-1); }
+    if (e.key === 'Home') { e.preventDefault(); go(0); }
+    if (e.key === 'End') { e.preventDefault(); go(slides.length-1); }
+  });
+  deck.addEventListener('scroll', () => {
+    const pct = (deck.scrollTop / (deck.scrollHeight - window.innerHeight)) * 100;
+    progress.style.width = pct + '%';
+  });
+  setTimeout(() => { hint.style.opacity = '0'; }, 5000);
+  deck.addEventListener('scroll', () => { hint.style.opacity = '0'; }, { once: true });
+</script>
+
+</body>
+</html>

@@ -16,6 +16,7 @@ const NAV_LINKS = [
   { href: "/cavalerie", label: "Cavalerie" },
   { href: "/equipe", label: "L'équipe" },
   { href: "/stages", label: "Stages" },
+  { href: "/concours", label: "Concours" },
   { href: "/contact", label: "Contact" },
 ]
 

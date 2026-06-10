@@ -176,6 +176,29 @@ export type Testimonial = {
   updated_at: string
 }
 
+export type PodiumEntry = {
+  rank: number
+  rider: string
+  horse: string | null
+}
+
+export type Concours = {
+  id: string
+  name: string
+  discipline: string | null
+  event_date: string
+  location: string | null
+  level: string | null
+  description: string | null
+  podium: PodiumEntry[]
+  image_url: string | null
+  is_featured: boolean
+  is_published: boolean
+  created_by: string | null
+  created_at: string
+  updated_at: string
+}
+
 export type Profile = {
   id: string
   email: string

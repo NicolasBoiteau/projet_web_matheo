@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
-import { LayoutDashboard, CalendarDays, ClipboardList, LogOut, ExternalLink } from "lucide-react"
+import { LayoutDashboard, CalendarDays, ClipboardList, Trophy, LogOut, ExternalLink } from "lucide-react"
 import { cn } from "@/lib/utils/cn"
 import { avatarUrl } from "@/lib/avatar"
 import { createClient } from "@/lib/supabase/client"
@@ -11,6 +11,7 @@ const LINKS = [
   { href: "/moniteur", label: "Tableau de bord", icon: LayoutDashboard, exact: true },
   { href: "/moniteur/cours", label: "Mes cours", icon: CalendarDays, exact: false },
   { href: "/moniteur/reservations", label: "Demandes", icon: ClipboardList, exact: false },
+  { href: "/moniteur/concours", label: "Concours", icon: Trophy, exact: false },
 ]
 
 export function MoniteurSidebar({ name, email }: { name: string; email: string }) {
