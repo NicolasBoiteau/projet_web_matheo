@@ -57,8 +57,8 @@
   .cover .meta { margin-top: 3.5rem; display: flex; gap: 2.5rem; flex-wrap: wrap; font-size: 0.85rem; letter-spacing: 0.05em; color: rgba(247,243,234,0.6); }
   .cover .meta strong { color: var(--gold); display: block; font-weight: 600; letter-spacing: 0.1em; margin-bottom: 0.2rem; text-transform: uppercase; font-size: 0.7rem; }
 
-  h2.title { font-size: clamp(1.9rem, 4vw, 3.2rem); font-weight: 700; line-height: 1.1; }
-  .lead { font-size: clamp(1.05rem, 1.8vw, 1.35rem); font-weight: 300; color: var(--cream-dim); max-width: 62ch; line-height: 1.6; }
+  h2.title { font-size: clamp(2.2rem, 4.6vw, 3.7rem); font-weight: 700; line-height: 1.1; }
+  .lead { font-size: clamp(1.2rem, 2vw, 1.55rem); font-weight: 300; color: var(--cream-dim); max-width: 62ch; line-height: 1.65; }
 
   .grid { display: grid; gap: 1.4rem; margin-top: 2.6rem; }
   .grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
@@ -67,13 +67,13 @@
 
   .card { background: rgba(255,255,255,0.04); border: 1px solid rgba(197,165,90,0.18); border-radius: 14px; padding: 1.5rem 1.6rem; transition: transform .2s, border-color .2s; }
   .card:hover { transform: translateY(-3px); border-color: var(--gold); }
-  .card .ico { font-size: 1.7rem; margin-bottom: 0.7rem; display: block; }
-  .card h3 { font-size: 1.15rem; font-weight: 700; color: var(--cream); margin-bottom: 0.5rem; }
-  .card p { font-size: 0.92rem; color: rgba(247,243,234,0.72); line-height: 1.5; font-weight: 300; }
+  .card .ico { font-size: 2rem; margin-bottom: 0.8rem; display: block; }
+  .card h3 { font-size: 1.32rem; font-weight: 700; color: var(--cream); margin-bottom: 0.55rem; }
+  .card p { font-size: 1.05rem; color: rgba(247,243,234,0.78); line-height: 1.55; font-weight: 300; }
 
   ul.feat { list-style: none; margin-top: 2rem; max-width: 70ch; }
-  ul.feat li { padding: 0.85rem 0 0.85rem 2.2rem; position: relative; border-bottom: 1px solid rgba(197,165,90,0.12); font-size: 1.02rem; font-weight: 300; color: var(--cream-dim); }
-  ul.feat li::before { content: "✦"; position: absolute; left: 0; top: 0.85rem; color: var(--gold); font-size: 0.9rem; }
+  ul.feat li { padding: 1rem 0 1rem 2.4rem; position: relative; border-bottom: 1px solid rgba(197,165,90,0.12); font-size: 1.22rem; font-weight: 300; color: var(--cream-dim); line-height: 1.5; }
+  ul.feat li::before { content: "✦"; position: absolute; left: 0; top: 1rem; color: var(--gold); font-size: 1rem; }
   ul.feat li b { color: var(--cream); font-weight: 600; }
 
   .two-col { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 4vw; align-items: center; }
@@ -93,6 +93,10 @@
   .cream-slide .card h3 { color: var(--fir); }
   .cream-slide .card p { color: #55554d; }
   .cream-slide .slide-num, .cream-slide .tag { color: rgba(0,0,0,0.35); }
+  .cream-slide ul.feat li { color: #44443e; border-bottom-color: rgba(0,0,0,0.1); }
+  .cream-slide ul.feat li b { color: var(--fir); }
+  .cream-slide ul.feat li::before { color: var(--copper); }
+  .cream-slide .pill { background: rgba(184,115,51,0.12); border-color: rgba(184,115,51,0.4); color: var(--copper); }
 
   /* ---------- Workflow diagram ---------- */
   .actorbar { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-top: 0.4rem; }
@@ -119,19 +123,34 @@
   .flow .step.mono { border-top-color: var(--mono); }
   .flow .step.admin { border-top-color: var(--admin); }
   .flow .step.auto { border-top-color: var(--gold); }
-  .flow .step .emoji { font-size: 1.5rem; display: block; margin-bottom: 0.5rem; }
-  .flow .step .s { font-size: 0.68rem; color: var(--gold); letter-spacing: 0.2em; text-transform: uppercase; }
-  .flow .step h4 { font-family: 'Playfair Display', serif; font-size: 1.02rem; margin: 0.25rem 0 0.4rem; color: var(--cream); }
-  .flow .step p { font-size: 0.82rem; color: rgba(247,243,234,0.65); font-weight: 300; line-height: 1.45; }
-  .flow .arrow { display: flex; align-items: center; justify-content: center; color: var(--gold); font-size: 1.4rem; padding: 0 0.5rem; }
+  .flow .step .emoji { font-size: 1.8rem; display: block; margin-bottom: 0.55rem; }
+  .flow .step .s { font-size: 0.74rem; color: var(--gold); letter-spacing: 0.2em; text-transform: uppercase; }
+  .flow .step h4 { font-family: 'Playfair Display', serif; font-size: 1.2rem; margin: 0.3rem 0 0.45rem; color: var(--cream); }
+  .flow .step p { font-size: 0.95rem; color: rgba(247,243,234,0.72); font-weight: 300; line-height: 1.5; }
+  .flow .arrow { display: flex; align-items: center; justify-content: center; color: var(--gold); font-size: 1.6rem; padding: 0 0.5rem; }
 
-  .result { margin-top: 1.8rem; display: inline-flex; align-items: center; gap: 0.7rem; background: rgba(197,165,90,0.12); border: 1px solid rgba(197,165,90,0.35); border-radius: 12px; padding: 0.9rem 1.3rem; font-size: 1rem; color: var(--cream); }
+  .result { margin-top: 1.8rem; display: inline-flex; align-items: center; gap: 0.7rem; background: rgba(197,165,90,0.12); border: 1px solid rgba(197,165,90,0.35); border-radius: 12px; padding: 1rem 1.5rem; font-size: 1.15rem; color: var(--cream); }
   .result .check { color: var(--gold); font-size: 1.3rem; }
 
   .cream-slide .flow .step { background: #fff; border-color: rgba(0,0,0,0.06); box-shadow: 0 6px 20px rgba(0,0,0,0.05); }
   .cream-slide .flow .step h4 { color: var(--fir); }
   .cream-slide .flow .step p { color: #55554d; }
   .cream-slide .result { color: var(--fir); }
+
+  /* ---------- Browser frame (screenshots) ---------- */
+  .browser { border-radius: 14px; overflow: hidden; border: 1px solid rgba(197,165,90,0.28); box-shadow: 0 26px 70px rgba(0,0,0,0.55); background: #161616; }
+  .browser .bar { display: flex; align-items: center; gap: 0.6rem; padding: 0.7rem 1rem; background: #232323; border-bottom: 1px solid rgba(255,255,255,0.06); }
+  .browser .dots { display: flex; gap: 0.45rem; }
+  .browser .dots span { width: 11px; height: 11px; border-radius: 50%; display: block; }
+  .browser .dots .r { background: #ff5f57; } .browser .dots .y { background: #febc2e; } .browser .dots .g { background: #28c840; }
+  .browser .url { flex: 1; background: rgba(255,255,255,0.07); border-radius: 7px; padding: 0.32rem 0.9rem; font-size: 0.74rem; color: rgba(247,243,234,0.55); text-align: center; letter-spacing: 0.02em; }
+  .browser img { display: block; width: 100%; height: auto; }
+  .shotcap { margin-top: 0.9rem; font-size: 0.82rem; letter-spacing: 0.05em; color: rgba(247,243,234,0.55); text-transform: uppercase; }
+  .cream-slide .shotcap { color: rgba(0,0,0,0.45); }
+  .shot-hero { max-width: 940px; margin: 2.4rem auto 0; }
+  .shot-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.8rem; margin-top: 2.4rem; }
+  .shot-grid .browser { box-shadow: 0 16px 44px rgba(0,0,0,0.5); }
+  @media (max-width: 820px) { .shot-grid { grid-template-columns: 1fr; } }
 
   #progress { position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(90deg, var(--gold), var(--copper)); width: 0%; z-index: 100; transition: width .25s; }
   .hint { position: fixed; bottom: 1.4rem; left: 50%; transform: translateX(-50%); font-size: 0.72rem; letter-spacing: 0.15em; color: rgba(247,243,234,0.4); z-index: 90; text-transform: uppercase; background: rgba(0,0,0,0.4); padding: 0.4rem 1rem; border-radius: 999px; transition: opacity .4s; }
@@ -171,6 +190,7 @@
       <div><strong>Le site fait</strong>Vitrine · Réservations · Gestion</div>
       <div><strong>Devise</strong>Dynamisme · Excellence · Passion</div>
     </div>
+    <p style="margin-top:2.2rem; font-size:0.8rem; letter-spacing:0.04em; color:rgba(247,243,234,0.45); font-style:italic;">Nom et identité visuelle entièrement personnalisables.</p>
     <div class="slide-num">01</div>
   </section>
 
@@ -188,6 +208,22 @@
       <div class="stat"><div class="n">0</div><div class="l">logiciel à installer</div></div>
     </div>
     <div class="slide-num">02</div>
+  </section>
+
+  <!-- 2bis. APERÇU SITE (screenshot accueil) -->
+  <section class="slide green-slide">
+    <span class="tag">Aperçu</span>
+    <div class="kicker">La page d'accueil</div>
+    <h2 class="title" style="text-align:center;">Voici à quoi ressemble le site</h2>
+    <div class="rule" style="margin-left:auto;margin-right:auto;"></div>
+    <div class="shot-hero">
+      <div class="browser">
+        <div class="bar"><div class="dots"><span class="r"></span><span class="y"></span><span class="g"></span></div><div class="url">ecuries-otakey.fr</div></div>
+        <img src="screenshots/accueil.png" alt="Page d'accueil du site" />
+      </div>
+      <p class="shotcap" style="text-align:center;">Capture réelle du site · page d'accueil sur ordinateur</p>
+    </div>
+    <div class="slide-num">00</div>
   </section>
 
   <!-- 3. QUI FAIT QUOI -->
@@ -309,6 +345,33 @@
     <div class="slide-num">08</div>
   </section>
 
+  <!-- 8bis. LE SITE EN IMAGES (galerie screenshots) -->
+  <section class="slide">
+    <span class="tag">Aperçu</span>
+    <div class="kicker">Quelques pages en images</div>
+    <h2 class="title">Le site en images</h2>
+    <div class="rule"></div>
+    <div class="shot-grid">
+      <div>
+        <div class="browser"><div class="bar"><div class="dots"><span class="r"></span><span class="y"></span><span class="g"></span></div><div class="url">ecuries-otakey.fr/cavalerie</div></div><img src="screenshots/cavalerie.png" alt="Page cavalerie" /></div>
+        <p class="shotcap">Cavalerie — fiches chevaux &amp; filtres</p>
+      </div>
+      <div>
+        <div class="browser"><div class="bar"><div class="dots"><span class="r"></span><span class="y"></span><span class="g"></span></div><div class="url">ecuries-otakey.fr/pensions</div></div><img src="screenshots/pensions.png" alt="Page pensions" /></div>
+        <p class="shotcap">Pensions — formules comparées</p>
+      </div>
+      <div>
+        <div class="browser"><div class="bar"><div class="dots"><span class="r"></span><span class="y"></span><span class="g"></span></div><div class="url">ecuries-otakey.fr/concours</div></div><img src="screenshots/concours.png" alt="Page concours" /></div>
+        <p class="shotcap">Concours — palmarès &amp; podiums</p>
+      </div>
+      <div>
+        <div class="browser"><div class="bar"><div class="dots"><span class="r"></span><span class="y"></span><span class="g"></span></div><div class="url">ecuries-otakey.fr/reservation</div></div><img src="screenshots/reservation.png" alt="Page réservation" /></div>
+        <p class="shotcap">Réservation — créneaux en ligne</p>
+      </div>
+    </div>
+    <div class="slide-num">00</div>
+  </section>
+
   <!-- 9. ESPACES PRIVÉS -->
   <section class="slide">
     <span class="tag">Les espaces privés</span>
@@ -391,6 +454,12 @@
   const slides = Array.from(document.querySelectorAll('.slide'));
   const progress = document.getElementById('progress');
   const hint = document.getElementById('hint');
+
+  // Numérotation automatique des slides (évite tout renumérotage manuel).
+  slides.forEach((s, i) => {
+    const n = s.querySelector('.slide-num');
+    if (n) n.textContent = String(i + 1).padStart(2, '0');
+  });
 
   function current() { return Math.round(deck.scrollTop / window.innerHeight); }
   function go(i) { i = Math.max(0, Math.min(slides.length - 1, i)); slides[i].scrollIntoView({ behavior: 'smooth' }); }
