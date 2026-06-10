@@ -1,9 +1,7 @@
 "use client"
 
-import { useState, useEffect, useCallback } from "react"
-import { useRouter, useSearchParams } from "next/navigation"
-import { Filter, X, RotateCcw } from "lucide-react"
-import { Button } from "@/components/ui/Button"
+import { useState, useEffect } from "react"
+import { Filter, RotateCcw } from "lucide-react"
 import { Badge } from "@/components/ui/Badge"
 import { cn } from "@/lib/utils/cn"
 
@@ -42,8 +40,6 @@ type HorseFiltersProps = {
 }
 
 export function HorseFilters({ onChange }: HorseFiltersProps) {
-  const searchParams = useSearchParams()
-  const router = useRouter()
   const [selectedDisciplines, setSelectedDisciplines] = useState<string[]>([])
   const [selectedBreeds, setSelectedBreeds] = useState<string[]>([])
   const [selectedAgeRange, setSelectedAgeRange] = useState<{ min: number; max: number } | null>(null)

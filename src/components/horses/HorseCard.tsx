@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import Image from "next/image"
 import { motion } from "framer-motion"
 import { Badge } from "@/components/ui/Badge"
 import { Ruler, Calendar } from "lucide-react"
@@ -34,13 +35,14 @@ export function HorseCard({ horse, index = 0 }: HorseCardProps) {
     >
       <Link href={`/cavalerie/${horse.slug.current}`} className="group block">
         <div className="relative mb-3 overflow-hidden rounded-2xl bg-fir/5">
-          <div className="aspect-[4/3]">
+          <div className="relative aspect-[4/3]">
             {horse.mainImage ? (
-              <img
+              <Image
                 src={horse.mainImage}
                 alt={horse.name}
-                className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                loading="lazy"
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                className="object-cover transition-transform duration-500 group-hover:scale-105"
               />
             ) : (
               <div className="flex h-full items-center justify-center">

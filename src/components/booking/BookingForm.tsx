@@ -207,7 +207,7 @@ export function BookingForm({ slots }: { slots: SlotWithRemaining[] }) {
               </div>
 
               <p className="mt-4 text-xs text-gray-400">
-                Aucun paiement en ligne : le règlement s'effectue sur place. Votre demande sera confirmée par le centre.
+                Aucun paiement en ligne : le règlement s’effectue sur place. Votre demande sera confirmée par le centre.
               </p>
 
               <div className="mt-6 flex gap-3">
@@ -233,7 +233,7 @@ export function BookingForm({ slots }: { slots: SlotWithRemaining[] }) {
               <h3 className="text-xl font-semibold text-fir">Demande envoyée !</h3>
               <p className="mt-2 max-w-sm text-sm text-gray-600">
                 Votre réservation est enregistrée (en attente de confirmation par le centre). Le
-                règlement s'effectue sur place.
+                règlement s’effectue sur place.
               </p>
               <div className="mt-6 flex gap-3">
                 <Link href="/membre/planning">
