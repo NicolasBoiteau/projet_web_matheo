@@ -119,11 +119,7 @@ export default function LoginPage() {
                 </div>
               </div>
 
-              <div className="flex items-center justify-between text-sm">
-                <label className="flex items-center gap-2 text-gray-500">
-                  <input type="checkbox" className="h-4 w-4 rounded border-gray-300 text-gold focus:ring-gold" />
-                  Se souvenir de moi
-                </label>
+              <div className="flex justify-end text-sm">
                 <Link href="/mot-de-passe-oublie" className="text-gold hover:underline">
                   Mot de passe oublié ?
                 </Link>
@@ -133,21 +129,6 @@ export default function LoginPage() {
                 {isLoading ? "Connexion..." : "Se connecter"}
               </Button>
             </form>
-
-            <div className="mt-6">
-              <div className="relative mb-6">
-                <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-fir/10" />
-                </div>
-                <div className="relative flex justify-center text-xs uppercase">
-                  <span className="bg-white px-2 text-gray-400">Ou</span>
-                </div>
-              </div>
-
-              <Button variant="outline" className="w-full">
-                Continuer avec Google
-              </Button>
-            </div>
 
             <p className="mt-6 text-center text-sm text-gray-500">
               Pas encore de compte ?{" "}

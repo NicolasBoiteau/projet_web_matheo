@@ -1,5 +1,16 @@
 import { z } from "zod"
 
+// Téléphone français : accepte 06 12 34 56 78, 0612345678, +33 6 12 34 56 78…
+// (espaces, points et tirets tolérés). Champ facultatif → la chaîne vide passe.
+const FRENCH_PHONE_REGEX = /^(?:\+33\s?|0)[1-9](?:[\s.-]?\d{2}){4}$/
+
+export const phoneSchema = z
+  .string()
+  .trim()
+  .regex(FRENCH_PHONE_REGEX, "Numéro de téléphone invalide")
+  .optional()
+  .or(z.literal(""))
+
 export const contactFormSchema = z.object({
   firstName: z.string().min(2, "Prénom requis (2 caractères minimum)"),
   lastName: z.string().min(2, "Nom requis (2 caractères minimum)"),
@@ -23,7 +34,7 @@ export const registerSchema = z
     firstName: z.string().min(2, "Prénom requis"),
     lastName: z.string().min(2, "Nom requis"),
     email: z.string().email("Email invalide"),
-    phone: z.string().optional(),
+    phone: phoneSchema,
     password: z.string().min(8, "8 caractères minimum"),
     confirmPassword: z.string(),
     acceptTerms: z.literal(true, { message: "Vous devez accepter les conditions" }),

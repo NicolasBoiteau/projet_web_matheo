@@ -8,6 +8,7 @@ import { UserPlus, Eye, EyeOff } from "lucide-react"
 import { Button } from "@/components/ui/Button"
 import { Card, CardContent, CardHeader } from "@/components/ui/Card"
 import { createClient } from "@/lib/supabase/client"
+import { phoneSchema } from "@/lib/utils/validators"
 
 export default function RegisterPage() {
   const router = useRouter()
@@ -26,8 +27,17 @@ export default function RegisterPage() {
     e.preventDefault()
     setError(null)
 
+    if (password.length < 8) {
+      setError("8 caractères minimum pour le mot de passe.")
+      return
+    }
     if (password !== confirmPassword) {
       setError("Les mots de passe ne correspondent pas.")
+      return
+    }
+    const phoneCheck = phoneSchema.safeParse(phone)
+    if (!phoneCheck.success) {
+      setError("Numéro de téléphone invalide (ex. 06 12 34 56 78).")
       return
     }
 
@@ -94,8 +104,9 @@ export default function RegisterPage() {
               )}
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="mb-1.5 block text-sm font-medium text-fir">Prénom</label>
+                  <label htmlFor="firstName" className="mb-1.5 block text-sm font-medium text-fir">Prénom</label>
                   <input
+                    id="firstName"
                     required
                     value={firstName}
                     onChange={(e) => setFirstName(e.target.value)}
@@ -104,8 +115,9 @@ export default function RegisterPage() {
                   />
                 </div>
                 <div>
-                  <label className="mb-1.5 block text-sm font-medium text-fir">Nom</label>
+                  <label htmlFor="lastName" className="mb-1.5 block text-sm font-medium text-fir">Nom</label>
                   <input
+                    id="lastName"
                     required
                     value={lastName}
                     onChange={(e) => setLastName(e.target.value)}
@@ -116,8 +128,9 @@ export default function RegisterPage() {
               </div>
 
               <div>
-                <label className="mb-1.5 block text-sm font-medium text-fir">Email</label>
+                <label htmlFor="email" className="mb-1.5 block text-sm font-medium text-fir">Email</label>
                 <input
+                  id="email"
                   type="email"
                   required
                   value={email}
@@ -128,8 +141,9 @@ export default function RegisterPage() {
               </div>
 
               <div>
-                <label className="mb-1.5 block text-sm font-medium text-fir">Téléphone</label>
+                <label htmlFor="phone" className="mb-1.5 block text-sm font-medium text-fir">Téléphone</label>
                 <input
+                  id="phone"
                   type="tel"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
@@ -139,9 +153,10 @@ export default function RegisterPage() {
               </div>
 
               <div>
-                <label className="mb-1.5 block text-sm font-medium text-fir">Mot de passe</label>
+                <label htmlFor="password" className="mb-1.5 block text-sm font-medium text-fir">Mot de passe</label>
                 <div className="relative">
                   <input
+                    id="password"
                     type={showPassword ? "text" : "password"}
                     required
                     minLength={8}
@@ -161,12 +176,14 @@ export default function RegisterPage() {
               </div>
 
               <div>
-                <label className="mb-1.5 block text-sm font-medium text-fir">
+                <label htmlFor="confirmPassword" className="mb-1.5 block text-sm font-medium text-fir">
                   Confirmer le mot de passe
                 </label>
                 <input
+                  id="confirmPassword"
                   type="password"
                   required
+                  minLength={8}
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   className="w-full rounded-xl border border-fir/10 bg-white px-4 py-3 text-sm transition-colors focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
@@ -181,7 +198,11 @@ export default function RegisterPage() {
                   className="mt-0.5 h-4 w-4 rounded border-gray-300 text-gold focus:ring-gold"
                 />
                 J&apos;accepte les{" "}
-                <Link href="#" className="text-gold hover:underline">
+                <Link
+                  href="/conditions-utilisation"
+                  target="_blank"
+                  className="text-gold hover:underline"
+                >
                   conditions d&apos;utilisation
                 </Link>
               </label>
