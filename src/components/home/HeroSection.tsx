@@ -60,7 +60,7 @@ export function HeroSection() {
           transition={{ duration: 0.7, delay: 0.4 }}
           className="mx-auto mt-6 max-w-xl text-base font-light leading-relaxed text-white/80 md:text-lg"
         >
-          Dynamisme, excellence, passion — un club où la performance rencontre la convivialité.
+          Cours, compétitions et stages — dans le respect du bien-être de nos équidés avant tout.
         </motion.p>
 
         <motion.div

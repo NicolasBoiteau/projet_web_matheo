@@ -61,8 +61,8 @@ export function Navbar() {
             height={56}
             priority
             className={cn(
-              "h-11 w-11 rounded-full object-cover transition-all sm:h-12 sm:w-12",
-              transparent && "ring-2 ring-white/70"
+              "h-11 w-11 rounded-full object-cover ring-2 transition-all sm:h-12 sm:w-12",
+              transparent ? "ring-white/70" : "ring-gold/50"
             )}
           />
         </Link>
