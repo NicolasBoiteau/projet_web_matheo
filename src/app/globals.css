@@ -6,9 +6,9 @@
   --color-gold-dark: #a8883e;
   --color-gold-light: #d4bc7a;
   --color-copper: #b87333;
-  --color-fir: #1b3a2d;
-  --color-fir-light: #2d5a47;
-  --color-fir-dark: #0f2a1e;
+  --color-fir: #14241b;
+  --color-fir-light: #244032;
+  --color-fir-dark: #0b1610;
   --color-cream: #faf8f3;
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Playfair Display", Georgia, serif;
@@ -77,10 +77,10 @@ html {
 /* FullCalendar custom styling */
 .booking-calendar {
   --fc-border-color: #e5e7eb;
-  --fc-button-bg-color: #1b3a2d;
-  --fc-button-border-color: #1b3a2d;
-  --fc-button-hover-bg-color: #2d5a47;
-  --fc-button-hover-border-color: #2d5a47;
+  --fc-button-bg-color: #14241b;
+  --fc-button-border-color: #14241b;
+  --fc-button-hover-bg-color: #244032;
+  --fc-button-hover-border-color: #244032;
   --fc-button-active-bg-color: #c5a55a;
   --fc-button-active-border-color: #c5a55a;
   --fc-today-bg-color: rgba(197, 165, 90, 0.08);
@@ -96,7 +96,7 @@ html {
 .booking-calendar .fc-toolbar-title {
   font-family: var(--font-display);
   font-size: 1.25rem !important;
-  color: #1b3a2d;
+  color: #14241b;
 }
 
 .booking-calendar .fc-button {
@@ -107,7 +107,7 @@ html {
 }
 
 .booking-calendar .fc-daygrid-day-number {
-  color: #1b3a2d;
+  color: #14241b;
   font-weight: 500;
   font-size: 0.875rem;
 }
