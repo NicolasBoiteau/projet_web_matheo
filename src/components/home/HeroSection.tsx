@@ -47,10 +47,10 @@ export function HeroSection() {
           transition={{ duration: 0.7, delay: 0.25 }}
           className="font-display text-5xl font-semibold leading-[1.05] tracking-tight text-white md:text-7xl lg:text-8xl"
         >
-          Les Écuries du
+          Les Écuries
           <br />
           <span className="bg-gradient-to-r from-gold via-gold-light to-gold bg-clip-text text-transparent">
-            O&apos;TAKEY
+            Arantino
           </span>
         </motion.h1>
 

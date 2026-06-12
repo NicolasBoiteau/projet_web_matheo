@@ -30,7 +30,7 @@ export function MoniteurSidebar({ name, email }: { name: string; email: string }
       {/* En-tête : logo + raccourcis mobile */}
       <div className="flex items-center justify-between gap-2 border-b border-fir/10 px-4 py-4 lg:px-6 lg:py-5">
         <Link href="/moniteur" className="font-display text-lg font-bold text-fir lg:text-xl">
-          O&apos;TAKEY <span className="text-gold">Moniteur</span>
+          Arantino <span className="text-gold">Moniteur</span>
         </Link>
         <div className="flex items-center gap-1 lg:hidden">
           <Link

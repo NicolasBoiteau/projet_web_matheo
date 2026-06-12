@@ -18,7 +18,7 @@ export function CTASection() {
           <h2 className="font-display text-3xl font-bold text-white md:text-5xl">
             Prêt à rejoindre
             <br />
-            <span className="text-gold">Les Écuries du O&apos;TAKEY ?</span>
+            <span className="text-gold">Les Écuries Arantino ?</span>
           </h2>
           <p className="mx-auto mt-6 max-w-xl text-lg text-white/70">
             Réservez votre visite, inscrivez-vous à un stage ou venez découvrir nos installations.

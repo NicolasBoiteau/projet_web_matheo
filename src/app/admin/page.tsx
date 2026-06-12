@@ -34,7 +34,7 @@ export default async function AdminDashboardPage() {
       <div className="mb-8 flex items-center justify-between">
         <div>
           <h1 className="font-display text-3xl font-bold text-fir">Tableau de bord</h1>
-          <p className="mt-1 text-sm text-gray-500">Gestion de la cavalerie O&apos;Takey</p>
+          <p className="mt-1 text-sm text-gray-500">Gestion de la cavalerie Arantino</p>
         </div>
         <Link
           href="/admin/chevaux/nouveau"
