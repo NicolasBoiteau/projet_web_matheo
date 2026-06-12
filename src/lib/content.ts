@@ -26,7 +26,7 @@ export const FALLBACK_PENSIONS: PensionPack[] = [
 
 export const FALLBACK_TEAM: TeamMember[] = [
   { id: "1", name: "Thomas Delacroix", role: "Fondateur & Gérant", email: null, phone: null, portrait_url: null, is_published: true, sort_order: 1, ...ts,
-    bio: "Passionné d'équitation depuis toujours, Thomas a fondé Les Écuries du O'TAKEY avec une vision : créer un centre d'excellence où chaque cavalier peut progresser dans un cadre convivial et professionnel.",
+    bio: "Passionné d'équitation depuis toujours, Thomas a fondé Les Écuries Arantino avec une vision : créer un centre d'excellence où chaque cavalier peut progresser dans un cadre convivial et professionnel.",
     specialties: ["Saut d'obstacles", "Concours complet", "Valorisation"], diplomas: ["BEES 1er degré", "BPJEPS Équitation", "FEI Level 2 Coach"] },
   { id: "2", name: "Camille Renard", role: "Coach Sportif & CSO", email: null, phone: null, portrait_url: null, is_published: true, sort_order: 2, ...ts,
     bio: "Ancienne compétitrice de niveau international, Camille met son expérience au service des cavaliers pour les aider à atteindre leurs objectifs, du galop au parcours de CSO.",

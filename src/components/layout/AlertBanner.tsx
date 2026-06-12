@@ -5,7 +5,7 @@ import { X } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 
 const DEFAULT_ALERT = {
-  message: "Bienvenue aux Écuries du O'TAKEY — Prochains stages disponible !",
+  message: "Bienvenue aux Écuries Arantino — Prochains stages disponibles !",
   dismissible: true,
 }
 

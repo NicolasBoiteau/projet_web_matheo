@@ -11,15 +11,15 @@ import { SITE_CONFIG } from "@/lib/utils/constants"
  *
  * Configuration (variables d'env) :
  *  - RESEND_API_KEY : clé API Resend (re_...)
- *  - EMAIL_FROM     : expéditeur. En mode test : "O'TAKEY <onboarding@resend.dev>"
+ *  - EMAIL_FROM     : expéditeur. En mode test : "Les Écuries Arantino <onboarding@resend.dev>"
  *                     (n'envoie qu'à l'adresse du compte Resend). En prod : une
- *                     adresse de ton domaine vérifié, ex "O'TAKEY <contact@otakey.fr>".
+ *                     adresse de ton domaine vérifié, ex "Les Écuries Arantino <contact@ecuries-arantino.fr>".
  *
  * Sans RESEND_API_KEY, les fonctions ne font rien (no-op) : le site continue de
  * tourner, les réservations sont créées même si l'email n'est pas configuré.
  */
 
-const FROM = process.env.EMAIL_FROM || "O'TAKEY <onboarding@resend.dev>"
+const FROM = process.env.EMAIL_FROM || "Les Écuries Arantino <onboarding@resend.dev>"
 
 export function isEmailConfigured(): boolean {
   return Boolean(process.env.RESEND_API_KEY)

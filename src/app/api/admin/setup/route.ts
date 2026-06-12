@@ -49,7 +49,7 @@ export async function GET(request: Request) {
         email_confirm: true,
         user_metadata: {
           first_name: "Admin",
-          last_name: "O'Takey",
+          last_name: "Arantino",
         },
       }
     )
@@ -66,7 +66,7 @@ export async function GET(request: Request) {
     // Update it to set role = 'admin'
     const { error: updateError } = await supabase
       .from("profiles")
-      .update({ role: "admin", first_name: "Admin", last_name: "O'Takey" })
+      .update({ role: "admin", first_name: "Admin", last_name: "Arantino" })
       .eq("id", authUser.user.id)
 
     if (updateError) {

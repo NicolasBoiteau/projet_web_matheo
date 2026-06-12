@@ -10,6 +10,6 @@
 const DICEBEAR_BASE = "https://api.dicebear.com/10.x/glyphs/svg"
 
 export function avatarUrl(seed: string | null | undefined): string {
-  const cleaned = (seed || "otakey").trim().toLowerCase()
+  const cleaned = (seed || "arantino").trim().toLowerCase()
   return `${DICEBEAR_BASE}?seed=${encodeURIComponent(cleaned)}`
 }

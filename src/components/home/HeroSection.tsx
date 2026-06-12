@@ -18,7 +18,7 @@ export function HeroSection() {
       <div className="absolute inset-0">
         <Image
           src={HERO_IMAGE}
-          alt="Cheval dans les Écuries du O'TAKEY"
+          alt="Cheval dans les Écuries Arantino"
           fill
           priority
           sizes="100vw"

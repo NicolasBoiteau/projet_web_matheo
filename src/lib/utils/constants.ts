@@ -1,20 +1,23 @@
 export const SITE_CONFIG = {
-  name: "Les Écuries du O'TAKEY",
-  tagline: "Dynamisme, Excellence, Passion",
+  name: "Les Écuries Arantino",
+  tagline: "Le bien-être de nos équidés avant tout",
   description:
-    "Centre équestre haut de gamme à Avrainville. Pensions sur-mesure, coaching personnalisé, stages et valorisation de chevaux.",
+    "Centre équestre et poney club à Avrainville. Cours collectifs et particuliers, compétitions, stages — dans le respect du bien-être de nos équidés.",
   url: process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
-  email: "contact@ecuries-otakey.fr",
+  // TODO: remplacer par le vrai email de contact des Écuries Arantino
+  email: "contact@ecuries-arantino.fr",
+  // TODO: remplacer par le vrai numéro de téléphone
   phone: "+33 X XX XX XX XX",
   address: {
-    street: "Route d'Avrainville",
+    street: "Les Quatre Ormes",
     city: "Avrainville",
     postalCode: "91630",
     country: "France",
   },
   social: {
-    facebook: "https://facebook.com/ecuriesotakey",
-    instagram: "https://instagram.com/ecuriesotakey",
+    // TODO: ajouter la vraie page Facebook si elle existe
+    facebook: "https://facebook.com/ecurie.arantino",
+    instagram: "https://www.instagram.com/ecurie.arantino/",
   },
   hours: {
     weekdays: "8h00 - 19h00",

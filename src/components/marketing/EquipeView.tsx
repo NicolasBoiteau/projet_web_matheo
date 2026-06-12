@@ -12,7 +12,7 @@ export function EquipeView({ members }: { members: TeamMember[] }) {
     <div>
       <PageHeader
         title="Notre Équipe"
-        subtitle="Des professionnels passionnés à votre service. Découvrez les visages des Écuries du O'TAKEY."
+        subtitle="Des professionnels passionnés à votre service. Découvrez les visages des Écuries Arantino."
       />
 
       <section className="relative -mt-8 pb-24">

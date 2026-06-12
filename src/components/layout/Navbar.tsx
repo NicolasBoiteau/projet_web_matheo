@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { usePathname } from "next/navigation"
 import { Menu, X } from "lucide-react"
 import { cn } from "@/lib/utils/cn"
@@ -52,15 +53,18 @@ export function Navbar() {
 
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 lg:px-8">
         {/* Logo */}
-        <Link href="/" className="flex items-center">
-          <span
+        <Link href="/" className="flex items-center" aria-label={SITE_CONFIG.name}>
+          <Image
+            src="/logo-arantino.jpg"
+            alt={SITE_CONFIG.name}
+            width={56}
+            height={56}
+            priority
             className={cn(
-              "font-display text-base font-bold tracking-wide transition-colors sm:text-lg md:text-xl",
-              transparent ? "text-white" : "text-fir"
+              "h-11 w-11 rounded-full object-cover transition-all sm:h-12 sm:w-12",
+              transparent && "ring-2 ring-white/70"
             )}
-          >
-            {SITE_CONFIG.name}
-          </span>
+          />
         </Link>
 
         {/* Desktop Nav */}

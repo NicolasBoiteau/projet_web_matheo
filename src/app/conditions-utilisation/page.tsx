@@ -5,7 +5,7 @@ import { SITE_CONFIG } from "@/lib/utils/constants"
 export const metadata: Metadata = {
   title: `Conditions d'utilisation — ${SITE_CONFIG.name}`,
   description:
-    "Conditions générales d'utilisation du site et de l'espace membre des Écuries du O'TAKEY.",
+    "Conditions générales d'utilisation du site et de l'espace membre des Écuries Arantino.",
 }
 
 export default function ConditionsUtilisationPage() {

@@ -79,13 +79,13 @@ export const FALLBACK_CONCOURS: Concours[] = [
   },
   {
     id: "demo-2",
-    name: "Concours d'Automne O'TAKEY",
+    name: "Concours d'Automne Arantino",
     discipline: "CSO",
     event_date: new Date(Date.now() - 30 * 864e5).toISOString().slice(0, 10),
     location: "Avrainville (91)",
     level: "Amateur",
     description:
-      "Belle journée de concours à domicile, podium 100% écuries du O'TAKEY.",
+      "Belle journée de concours à domicile, podium 100% Écuries Arantino.",
     podium: [
       { rank: 1, rider: "Léa Martin", horse: "Uranus du Vent" },
       { rank: 2, rider: "Hugo Bernard", horse: "Vegas de la Plaine" },
